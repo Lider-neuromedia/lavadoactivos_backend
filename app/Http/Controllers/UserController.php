@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Models\Tipo;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,17 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        //
+        $count_admins = \DB::table('users')->where('tipo', Tipo::ADMIN)->count();
+
+        if (\Auth::user()->id == $user->id) {
+            throw new \Exception("No se puede borrar a si mismo");
+        } else if ($user->tipo == Tipo::ADMIN && $count_admins == 1) {
+            throw new \Exception("No se puden borrar todos los administradores");
+        }
+
+        $user->delete();
+
+        return response()->json(['message' => 'Usuario borrado correctamente']);
     }
 
     private function saveOrUpdate(Request $request, User $user = null)

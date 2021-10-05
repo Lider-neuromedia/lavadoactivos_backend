@@ -35,4 +35,5 @@ Route::group(['middleware' => ['auth:api', 'tipo:' . Tipo::ADMIN]], function () 
     Route::post('users', [UserController::class, 'store'])->name('store');
     Route::get('users/{user}', [UserController::class, 'show'])->name('show');
     Route::match(['PUT', 'PATCH'], 'users/{user}', [UserController::class, 'update'])->name('update');
+    Route::delete('users/{user}', [UserController::class, 'destroy'])->name('destroy');
 });
