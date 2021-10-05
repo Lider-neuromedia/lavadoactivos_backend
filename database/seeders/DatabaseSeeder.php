@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Tipo;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +15,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        User::create([
+            'nombre' => 'Jose Nieto',
+            'cedula' => '',
+            'celular' => '',
+            'tipo' => Tipo::ADMIN,
+            'email' => 'inge1neuro@gmail.com',
+            'password' => \Hash::make('secret'),
+        ]);
+
+        User::factory(32)->create();
     }
 }

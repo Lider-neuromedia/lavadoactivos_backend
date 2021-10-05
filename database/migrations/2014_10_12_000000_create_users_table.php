@@ -17,9 +17,9 @@ class CreateUsersTable extends Migration
             $table->engine = 'InnoDB';
             $table->id();
             $table->string('nombre');
-            $table->integer('cedula')->unique();
-            $table->integer('celular');
-            $table->string('tipo');
+            $table->string('cedula')->unique();
+            $table->string('celular');
+            $table->integer('tipo')->unsigned();
             $table->string('email', 255)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
