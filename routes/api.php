@@ -12,13 +12,11 @@
  */
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\QuizController;
+use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\UserController;
 use App\Models\Tipo;
 use Illuminate\Support\Facades\Route;
-
-Route::get('test', function () {
-    return response()->json(['ok'], 200);
-});
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [AuthController::class, 'login'])->name('login');
@@ -28,6 +26,15 @@ Route::group(['prefix' => 'auth'], function () {
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
         Route::get('me', [AuthController::class, 'me'])->name('me');
     });
+});
+
+Route::group(['prefix' => 'game', 'middleware' => ['auth:api']], function () {
+    Route::post('statistics', [StatisticsController::class, 'store'])->name('store');
+});
+
+Route::group(['prefix' => 'quiz', 'middleware' => ['auth:api']], function () {
+    Route::get('questions', [QuizController::class, 'questions'])->name('quiz.questions');
+    Route::post('respond', [QuizController::class, 'respond'])->name('quiz.respond');
 });
 
 Route::group(['middleware' => ['auth:api', 'tipo:' . Tipo::ADMIN]], function () {

@@ -79,4 +79,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->tipo != Tipo::ADMIN;
     }
+
+    public function statistics()
+    {
+        return $this->hasMany(Statistic::class);
+    }
 }
