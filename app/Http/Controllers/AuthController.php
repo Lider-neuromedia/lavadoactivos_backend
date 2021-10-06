@@ -15,15 +15,17 @@ class AuthController extends Controller
         $data['password'] = bcrypt($request->password);
         $user = User::create($data);
 
-        return response()->json([
-            'message' => 'Usuario registrado correctamente',
-            'user' => $user,
-        ], 201);
+        $credentials = request(['email', 'password']);
+
+        if (!$token = auth()->attempt($credentials)) {
+            return response()->json(['error' => 'Usuario registrado pero no se pudo inicia sesión. Unauthorized'], 401);
+        }
+
+        return $this->respondWithToken($token);
     }
 
     public function login()
     {
-        $users = User::all();
         $credentials = request(['email', 'password']);
 
         if (!$token = auth()->attempt($credentials)) {
