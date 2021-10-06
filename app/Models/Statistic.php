@@ -12,6 +12,7 @@ class Statistic extends Model
     protected $fillable = [
         'movements',
         'bad_movements',
+        'time',
         'start_at',
         'end_at',
     ];
