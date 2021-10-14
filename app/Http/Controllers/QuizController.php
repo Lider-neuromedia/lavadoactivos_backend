@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\GameFinished;
 use App\Models\Question;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class QuizController extends Controller
 {
@@ -46,9 +44,6 @@ class QuizController extends Controller
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 ]);
             }
-
-            $emails = explode(',', env('MAIL_TO', ''));
-            Mail::to($emails)->send(new GameFinished());
 
             \DB::commit();
             $message = 'Respuestas guardadas correctamente.';
