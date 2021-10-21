@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'cedula' => $this->faker->numberBetween($min = 1113657118, $max = 1118657118),
             'celular' => $this->faker->e164PhoneNumber,
-            'tipo' => $this->faker->numberBetween($min = 1, $max = 3),
+            'tipo' => $this->faker->numberBetween($min = 1, $max = 6),
         ];
     }
 

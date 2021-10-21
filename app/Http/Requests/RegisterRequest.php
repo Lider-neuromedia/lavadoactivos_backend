@@ -27,7 +27,7 @@ class RegisterRequest extends FormRequest
             'nombre' => ['required', 'string', 'max:100'],
             'cedula' => ['required', 'digits_between:6,12', 'unique:users,cedula'],
             'celular' => ['required', 'digits_between:7,20'],
-            'tipo' => ['required', 'in:1,2,3'],
+            'tipo' => ['required', 'in:1,2,3,5,6'],
             'email' => ['required', 'email', 'unique:users'],
             'password' => ['required', 'confirmed', 'min:6'],
         ];
